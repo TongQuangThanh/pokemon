@@ -22,21 +22,21 @@ export class AppComponent implements OnInit {
     {
       title: 'Schedule',
       url: '/app/tabs/schedule',
-      icon: 'calendar'
+      icon: 'game-controller'
     },
+    // {
+    //   title: 'Speakers',
+    //   url: '/app/tabs/speakers',
+    //   icon: 'people'
+    // },
+    // {
+    //   title: 'Map',
+    //   url: '/app/tabs/map',
+    //   icon: 'map'
+    // },
     {
-      title: 'Speakers',
-      url: '/app/tabs/speakers',
-      icon: 'people'
-    },
-    {
-      title: 'Map',
-      url: '/app/tabs/map',
-      icon: 'map'
-    },
-    {
-      title: 'About',
-      url: '/app/tabs/about',
+      title: 'Wiki',
+      url: '/app/tabs/wiki',
       icon: 'information-circle'
     }
   ];
