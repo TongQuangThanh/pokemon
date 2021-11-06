@@ -31,7 +31,7 @@ export class WikiPage implements OnInit {
   habitats = [];
 
   constructor(private pokemonService: PokemonService, private storageService: StorageService,
-    public routerOutlet: IonRouterOutlet, private modalController: ModalController) { }
+              public routerOutlet: IonRouterOutlet, private modalController: ModalController) { }
 
   ngOnInit() {
     this.loadData();
@@ -39,7 +39,7 @@ export class WikiPage implements OnInit {
 
   getPokemonAvatar(pokemon: Pokemon) {
     return pokemon.sprites.other.dream_world.front_default ?
-      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other["official-artwork"].front_default;
+      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other['official-artwork'].front_default;
   }
 
   searchPokemon() {
@@ -113,7 +113,7 @@ export class WikiPage implements OnInit {
     const modal = await this.modalController.create({
       component: PokemonComponent,
       componentProps: {
-        'pokemon': selectedPokemon
+        pokemon: selectedPokemon
       }
     });
     await modal.present();

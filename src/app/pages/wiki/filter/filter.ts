@@ -34,7 +34,7 @@ export class FilterComponent implements OnInit {
   results = [];
 
   constructor(public modalCtrl: ModalController, private pokemonService: PokemonService,
-    public navParams: NavParams, private loadingService: LoadingService) { }
+              public navParams: NavParams, private loadingService: LoadingService) { }
 
   ngOnInit() {
     this.loadingService.showLoading();
@@ -70,13 +70,13 @@ export class FilterComponent implements OnInit {
   addChecked(array: any[], selected: NameUrl[] = []) {
     const names = selected.map(it => it.name);
     for (const item of array) {
-      item['checked'] = names.includes(item.name);
+      item.checked = names.includes(item.name);
     }
   }
 
   getId(url: string) {
     const stringId = url.replace(`${baseUrls}/`, '').replace('pokemon-species/', '').replace('pokemon/', '');
-    return parseInt(stringId);
+    return parseInt(stringId, 10);
   }
 
   async addToArray(promise: Promise<any>[]) {
@@ -131,7 +131,7 @@ export class FilterComponent implements OnInit {
     const types = this.types.filter(it => it.checked);
     const habitats = this.habitats.filter(it => it.checked);
     const promise = [];
-    const all = shapes.concat(types).concat(genders).concat(growths).concat(colors).concat(habitats)
+    const all = shapes.concat(types).concat(genders).concat(growths).concat(colors).concat(habitats);
     for (const it of all) {
       promise.push(this.pokemonService.getDataByUrl(it.url).toPromise());
     }

@@ -1,5 +1,5 @@
 import { ModalController } from '@ionic/angular';
-import { Encounter, Pokemon, statsData, typesData, Type, Ability, TypeRelation, DoubleDamageTo, PokemonSpecies, Variety, EvolutionChain, DoubleDamageFrom, baseUrls } from './../../../models/model';
+import { Encounter, Pokemon, statsData, typesData, Type, Ability, TypeRelation, DoubleDamageTo, PokemonSpecies, Variety, EvolutionChain, DoubleDamageFrom } from './../../../models/model';
 import { Component, Input, OnInit } from '@angular/core';
 import { PokemonService } from '../../../services/pokemon.service';
 
@@ -46,7 +46,7 @@ export class PokemonComponent implements OnInit {
             color: typeDefined.color,
             opacity: typeDefined.opacity,
             url: typeDefined.url
-          }
+          };
         });
         const damageTo = val.damage_relations.double_damage_to.map((it: DoubleDamageTo) => {
           const typeDefined = typesData.find(type => type.name === it.name);
@@ -55,7 +55,7 @@ export class PokemonComponent implements OnInit {
             color: typeDefined.color,
             opacity: typeDefined.opacity,
             url: typeDefined.url
-          }
+          };
         });
         this.avoidTo = this.avoidTo.concat(damageFrom);
         this.bestToBeat = this.bestToBeat.concat(damageTo);
@@ -81,13 +81,13 @@ export class PokemonComponent implements OnInit {
                 color: typeDefined.color,
                 opacity: typeDefined.opacity,
                 url: typeDefined.url
-              }
+              };
             })
           );
         });
       }
-      this.pokemonService.getDataByUrl(this.pokemonSpecies.evolution_chain.url).subscribe(async (data: EvolutionChain) => {
-        let chain = data.chain;
+      this.pokemonService.getDataByUrl(this.pokemonSpecies.evolution_chain.url).subscribe(async (chainData: EvolutionChain) => {
+        let chain = chainData.chain;
         while (chain && chain.species) {
           const pok = await this.pokemonService.searchPokemon(chain.species.name).toPromise();
           pok['min_level'] = chain.evolves_to[0]?.evolution_details[0]?.min_level || null;
@@ -102,7 +102,7 @@ export class PokemonComponent implements OnInit {
               color: typeDefined.color,
               opacity: typeDefined.opacity,
               url: typeDefined.url
-            }
+            };
           })
         );
       });
@@ -111,10 +111,12 @@ export class PokemonComponent implements OnInit {
       this.locationArea = data.map((enc: Encounter) => enc.location_area.name);
     });
     for (const key in this.pokemon.sprites.other) {
-      const imageLayer = this.pokemon.sprites.other[key];
-      for (const key2 in imageLayer) {
-        if (imageLayer[key2]) {
-          this.images.push(imageLayer[key2]);
+      if (Object.prototype.hasOwnProperty.call(this.pokemon.sprites.other, key)) {
+        const imageLayer = this.pokemon.sprites.other[key];
+        for (const key2 in imageLayer) {
+          if (imageLayer[key2]) {
+            this.images.push(imageLayer[key2]);
+          }
         }
       }
     }
@@ -126,7 +128,7 @@ export class PokemonComponent implements OnInit {
         val: stat.base_stat,
         percent: 100 * stat.base_stat / statDefined.value,
         color: statDefined.color
-      }
+      };
     });
     this.typeArray = this.pokemon.types.map((type: Type) => {
       const typeDefined = typesData.find(it => it.name === type.type.name);
@@ -135,7 +137,7 @@ export class PokemonComponent implements OnInit {
         color: typeDefined.color,
         opacity: typeDefined.opacity,
         url: typeDefined.url
-      }
+      };
     });
     this.abilityArray = this.pokemon.abilities
       // .filter((ability: Ability) => !ability.is_hidden)
@@ -147,13 +149,13 @@ export class PokemonComponent implements OnInit {
           opacity: typeDefined.opacity,
           url: typeDefined.url,
           hidden: ability.is_hidden
-        }
+        };
       });
   }
 
   getPokemonAvatar(pokemon: Pokemon) {
     return pokemon.sprites.other.dream_world.front_default ?
-      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other["official-artwork"].front_default;
+      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other['official-artwork'].front_default;
   }
 
   showPokemon(pokemon: Pokemon) {
