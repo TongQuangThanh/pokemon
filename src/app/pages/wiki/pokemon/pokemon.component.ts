@@ -1,5 +1,6 @@
 import { ModalController } from '@ionic/angular';
-import { Encounter, Pokemon, statsData, typesData, Type, Ability, TypeRelation, DoubleDamageTo, PokemonSpecies, Variety, EvolutionChain, DoubleDamageFrom } from './../../../models/model';
+import { Encounter, Pokemon, statsData, typesData, Type, Ability, TypeRelation, DoubleDamageTo,
+        PokemonSpecies, Variety, EvolutionChain, DoubleDamageFrom } from './../../../models/model';
 import { Component, Input, OnInit } from '@angular/core';
 import { PokemonService } from '../../../services/pokemon.service';
 
