@@ -1,0 +1,40 @@
+/*
+ * Material Design
+ */
+
+
+.md .checkbox-btn {
+  --border-width: 1px;
+}
+
+.md ion-checkbox {
+  --background-checked: transparent;
+  --border-color: transparent;
+  --border-color-checked: transparent;
+  --checkmark-color: var(--ion-color-primary);
+}
+
+/*
+ * iOS
+ */
+
+.ios ion-list-header {
+  margin-top: 10px;
+}
+
+.ios ion-label {
+  color: var(--ion-color-primary);
+}
+
+.ios ion-checkbox {
+  --size: 1.2rem;
+}
+
+ion-button {
+  --padding-start: 0.5rem;
+  --padding-end: 0.5rem;
+}
+
+.margin-1 {
+  margin-right: 0.5rem;
+}

@@ -3,21 +3,32 @@
     <ion-buttons *ngIf="!showSearchBar" slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title *ngIf="!showSearchBar">Schedule</ion-title>
+    <ion-title *ngIf="!showSearchBar">Wiki</ion-title>
     <ion-searchbar *ngIf="showSearchBar" showCancelButton="always" [(ngModel)]="queryText" (ionChange)="searchPokemon()"
-      (ionCancel)="showSearchBar = false" placeholder="Search"></ion-searchbar>
+      (ionCancel)="showSearchBar = false" placeholder="Search name or id"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button *ngIf="!showSearchBar" (click)="showSearchBar = true">
         <ion-icon slot="icon-only" name="search"></ion-icon>
+      </ion-button>
+      <ion-button *ngIf="!showSearchBar" (click)="presentFilter()">
+        <span *ngIf="ios">Filter</span>
+        <span *ngIf="!ios">
+          <ion-icon slot="icon-only" name="options"></ion-icon>
+        </span>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid fixed *ngIf="results">
-    <ion-row>
-      <ion-col *ngFor="let pokemon of results" sizeXs="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2" (click)="showDetailPokemon(pokemon.id)">
+  <ion-grid fixed>
+    <ion-row class="w-100">
+      <ion-col size="6">
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!loading">
+      <ion-col *ngFor="let pokemon of results" sizeXs="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2"
+        (click)="showDetailPokemon(pokemon.id)">
         <!-- <ion-card>
           <ion-img [src]="getPokemonAvatar(pokemon)" class="ion-margin" class=""></ion-img>
           <ion-card-header>
@@ -61,8 +72,38 @@
           </ion-label>
         </ion-item>
       </ion-col>
+    </ion-row>
+    <ion-row *ngIf="loading">
+      <ion-col *ngFor="let pokemon of [1,2,3,4,5,6,7,8]" sizeXs="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2">
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-thumbnail>
+          <ion-label>
+            <h3>
+              <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+            </h3>
+            <p>
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text class="ion-float-left" animated style="width: 30%"></ion-skeleton-text>
+              <ion-skeleton-text class="ion-float-right" animated style="width: 30%"></ion-skeleton-text>
+            </p>
+          </ion-label>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="results.length === 0 && !loading" class="justify-content-center">
+      <ion-title>No data</ion-title>
+    </ion-row>
+    <ion-row>
       <ion-col size="12">
-        <ion-button expand="full" (click)="loadData()">Load more</ion-button>
+        <ion-label *ngIf="results.length > 0">
+          <!-- Showing {{ results.length }} / {{ filterByType.length > 0 ? filterByType.length : totals }} -->
+        </ion-label>
+        <ion-button *ngIf="searchMode" expand="full" (click)="clearSearch()">Clear search</ion-button>
+        <ion-button *ngIf="!searchMode && results.length > 0" expand="full" (click)="loadData()">Load more</ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

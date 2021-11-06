@@ -1,0 +1,189 @@
+<ion-header translucent="true">
+  <ion-toolbar>
+    <ion-title>
+      Filter
+    </ion-title>
+
+    <ion-buttons slot="end">
+      <ion-button (click)="applyFilters()" strong>Done</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Genders</ion-label>
+      <ion-label>
+        <ion-item lines="none">
+          <ion-checkbox slot="end" [(ngModel)]="genderAll" (click)="toggleAll(genders, genderAll)"
+            class="ion-no-margin">
+          </ion-checkbox>
+          <ion-label slot="end" class="ion-margin">Select all</ion-label>
+        </ion-item>
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of genders; index as i" class="">
+          <ion-button (click)="check(item, genders, genderAll)" expand="block" class="ion-margin-end checkbox-btn"
+            [fill]="item.checked ? 'outline' : 'clear'">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+              <ion-checkbox [checked]="item.checked" class="margin-1"></ion-checkbox>
+              <ion-label class="flex-grow-1 ion-text-start">{{ item.name }}</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Type</ion-label>
+      <ion-label>
+        <ion-item lines="none">
+          <ion-checkbox slot="end" [(ngModel)]="typeAll" (click)="toggleAll(types, typeAll)" class="ion-no-margin">
+          </ion-checkbox>
+          <ion-label slot="end" class="ion-margin">Select all</ion-label>
+        </ion-item>
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of types; index as i" class="">
+          <ion-button (click)="check(item, types, typeAll)" expand="block" class="ion-margin-end checkbox-btn"
+            [fill]="item.checked ? 'outline' : 'clear'">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+              <ion-checkbox [checked]="item.checked" class="margin-1"></ion-checkbox>
+              <ion-label class="flex-grow-1 ion-text-start">{{ item.name }}</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Growth Rate</ion-label>
+      <ion-label>
+        <ion-item lines="none">
+          <ion-checkbox slot="end" [(ngModel)]="growthAll" (click)="toggleAll(growthRates, growthAll)"
+            class="ion-no-margin">
+          </ion-checkbox>
+          <ion-label slot="end" class="ion-margin">Select all</ion-label>
+        </ion-item>
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of growthRates; index as i" class="">
+          <ion-button (click)="check(item, growthRates, growthAll)" expand="block" class="ion-margin-end checkbox-btn"
+            [fill]="item.checked ? 'outline' : 'clear'">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+              <ion-checkbox [checked]="item.checked" class="margin-1"></ion-checkbox>
+              <ion-label class="flex-grow-1 ion-text-start">{{ item.name }}</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Habitat</ion-label>
+      <ion-label>
+        <ion-item lines="none">
+          <ion-checkbox slot="end" [(ngModel)]="habitatAll" (click)="toggleAll(habitats, habitatAll)"
+            class="ion-no-margin">
+          </ion-checkbox>
+          <ion-label slot="end" class="ion-margin">Select all</ion-label>
+        </ion-item>
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of habitats; index as i" class="">
+          <ion-button (click)="check(item, habitats, shapeAll)" expand="block" class="ion-margin-end checkbox-btn"
+            [fill]="item.checked ? 'outline' : 'clear'">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+              <ion-checkbox [checked]="item.checked" class="margin-1"></ion-checkbox>
+              <ion-label class="flex-grow-1 ion-text-start">{{ item.name }}</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Shape</ion-label>
+      <ion-label>
+        <ion-item lines="none">
+          <ion-checkbox slot="end" [(ngModel)]="shapeAll" (click)="toggleAll(shapes, shapeAll)" class="ion-no-margin">
+          </ion-checkbox>
+          <ion-label slot="end" class="ion-margin">Select all</ion-label>
+        </ion-item>
+      </ion-label>
+    </ion-list-header>
+    <ion-item>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of shapes; index as i" class="">
+          <ion-button (click)="check(item, shapes, shapeAll)" expand="block" class="ion-margin-end checkbox-btn"
+            [fill]="item.checked ? 'outline' : 'clear'">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+              <ion-checkbox [checked]="item.checked" class="margin-1"></ion-checkbox>
+              <ion-label class="flex-grow-1 ion-text-start">{{ item.name }}</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-item>
+  </ion-list>
+  <!-- <ion-list>
+    <ion-item>
+      <ion-label>Shape</ion-label>
+      <ion-select multiple="true" [(ngModel)]="selectedShape" (ionChange)="filterShape()">
+        <ion-select-option [value]="shape" *ngFor="let shape of shapes">{{shape.name}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </ion-list> -->
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Colors</ion-label>
+      <ion-label>
+        <ion-item lines="none">
+          <ion-checkbox slot="end" [(ngModel)]="colorAll" (click)="toggleAll(colors, colorAll)" class="ion-no-margin">
+          </ion-checkbox>
+          <ion-label slot="end" class="ion-margin">Select all</ion-label>
+        </ion-item>
+      </ion-label>
+    </ion-list-header>
+      <ion-row>
+        <ion-col size="6" *ngFor="let item of colors; index as i" class="">
+          <ion-button (click)="check(item, colors, colorAll)" expand="block" class="ion-margin-end checkbox-btn"
+            [fill]="item.checked ? 'outline' : 'clear'">
+            <div class="w-100 d-flex justify-content-between align-items-center">
+              <ion-checkbox [checked]="item.checked" class="margin-1"></ion-checkbox>
+              <ion-label class="flex-grow-1 ion-text-start">{{ item.name }}</ion-label>
+            </div>
+          </ion-button>
+        </ion-col>
+      </ion-row>
+  </ion-list>
+</ion-content>
+
+<ion-footer translucent="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismiss()">Cancel</ion-button>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="resetAll()">Reset</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

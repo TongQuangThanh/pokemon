@@ -1,6 +1,6 @@
 {
-  "name": "Ionic Conference",
-  "short_name": "Ionic Conference",
+  "name": "Pokemon wiki & game",
+  "short_name": "Pokemon wiki & game",
   "start_url": "index.html",
   "display": "standalone",
   "icons": [

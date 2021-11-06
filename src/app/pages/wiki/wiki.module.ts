@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { WikiPage } from './wiki';
 import { AboutPageRoutingModule } from './wiki-routing.module';
 import { PokemonComponent } from './pokemon/pokemon.component';
+import { FilterComponent } from './filter/filter';
 
 @NgModule({
   imports: [
@@ -16,7 +17,7 @@ import { PokemonComponent } from './pokemon/pokemon.component';
     NgbModule,
     AboutPageRoutingModule
   ],
-  declarations: [WikiPage, PokemonComponent],
+  declarations: [WikiPage, PokemonComponent, FilterComponent],
   entryComponents: [],
   bootstrap: [WikiPage],
 })

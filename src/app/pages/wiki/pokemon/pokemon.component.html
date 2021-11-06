@@ -7,9 +7,252 @@
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
-  <ion-slides *ngIf="images" pager="false" scrollbar="true" [options]="slideOpts">
+  <!-- <ion-slides *ngIf="images" pager="false" scrollbar="true" [options]="slideOpts">
     <ion-slide *ngFor="let item of images">
       <ion-img [src]="item"></ion-img>
     </ion-slide>
-  </ion-slides>
+  </ion-slides> -->
+  <ion-img [src]="getPokemonAvatar(pokemon)" class="ion-margin"></ion-img>
+  <ion-card-header>
+    <h1>{{ pokemon.name }}</h1>
+    <ion-chip [color]="item.color" *ngFor="let item of typeArray" class="opacity-{{item.opacity}}"
+      (click)="goSameType(item)">
+      <ion-label>{{ item.name }}</ion-label>
+    </ion-chip>
+  </ion-card-header>
+  <ion-card-content>
+    <ion-list>
+      <ion-item lines="none">
+        <ion-label><b>Ability</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-chip [color]="item.color" outline="true" *ngFor="let item of abilityArray" [disabled]="item.hidden"
+          class="opacity-{{item.opacity}}">
+          <ion-label>{{ item.name + (item.hidden ? ' (hidden)' : '') }}</ion-label>
+        </ion-chip>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>ID</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemon.id }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Name</b></ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-row *ngIf="pokemonSpecies?.names.length > 0">
+          <ion-col sizeXs="6" *ngFor="let item of names">• {{ item }}</ion-col>
+        </ion-row>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Species</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemonSpecies?.color.name }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Shape</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemonSpecies?.shape.name }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Color</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemon.species.name }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Has gender differences</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemonSpecies?.has_gender_differences }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Sex</b></ion-label>
+        <ion-text style="width: 40%" *ngIf="pokemonSpecies?.gender_rate === -1">Genderless</ion-text>
+      </ion-item>
+      <ion-item *ngIf="pokemonSpecies?.gender_rate !== -1">
+        <ion-label>
+          <ion-text class="ion-padding-start">Male</ion-text>
+        </ion-label>
+        <ion-text style="width: 40%">{{ 100 - 100 * pokemonSpecies?.gender_rate / 8 | number: '1.0-2' }}%</ion-text>
+      </ion-item>
+      <ion-item *ngIf="pokemonSpecies?.gender_rate !== -1">
+        <ion-label>
+          <ion-text class="ion-padding-start">Female</ion-text>
+        </ion-label>
+        <ion-text style="width: 40%">{{ 100 * pokemonSpecies?.gender_rate / 8 | number: '1.0-2' }}%</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Default</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemon.is_default }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Height</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemon.height / 10 }} m</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Weight</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemon.weight / 10 }} kg</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Base experiment</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemon.base_experience }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Base capture rate</b></ion-label>
+        <ion-text style="width: 40%">
+          {{ pokemonSpecies?.capture_rate }} ({{ 100 * pokemonSpecies?.capture_rate / 255 | number: '1.0-2' }}%)
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Base happiness rate</b></ion-label>
+        <ion-text style="width: 40%">
+          {{ pokemonSpecies?.base_happiness }} ({{ 100 * pokemonSpecies?.base_happiness / 255 | number: '1.0-2' }}%)
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Is baby</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemonSpecies?.is_baby }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Is legendary</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemonSpecies?.is_legendary }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Is mythical</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemonSpecies?.is_mythical }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Forms switchable</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemonSpecies?.forms_switchable }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Growth rate</b></ion-label>
+        <ion-text style="width: 40%">{{ pokemonSpecies?.growth_rate.name }}</ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Habitat</b></ion-label>
+        <ion-text style="width: 40%">
+          {{ pokemonSpecies?.habitat?.name ? pokemonSpecies?.habitat?.name : 'Unknown' }}
+        </ion-text>
+      </ion-item>
+
+      <ion-item>
+        <ion-label><b>Hatch counter</b></ion-label>
+        <ion-text style="width: 40%">
+          {{ pokemonSpecies?.hatch_counter }} ({{ 255 * (pokemonSpecies?.hatch_counter + 1) }} step)
+        </ion-text>
+      </ion-item>
+
+      <ion-item lines="none">
+        <ion-label><b>Encounter</b></ion-label>
+        <ion-text style="width: 40%" *ngIf="locationArea.length === 0">Unknown</ion-text>
+      </ion-item>
+      <ion-item *ngIf="locationArea.length > 0">
+        <ion-row class="w-100">
+          <ion-col [sizeXs]="locationArea.length > 1 ? 6 : 12" *ngFor="let item of locationArea">• {{ item }}</ion-col>
+        </ion-row>
+      </ion-item>
+
+      <ion-item lines="none" class="ion-margin-top">
+        <ion-label><b>Statistics</b></ion-label>
+        <ion-text class="ion-text-end" style="width: 40%"><b>{{ points }}</b> (total)</ion-text>
+      </ion-item>
+      <ion-row class="w-100">
+        <ion-col sizeXs="12" *ngFor="let item of statArray">
+          <p class="position-relative">
+            <ngb-progressbar [type]="item.color" [value]="item.percent" [striped]="true" [animated]="true"
+              height="1.5rem">
+              <i>{{ item.val | number: '1.0-2' }}</i>
+            </ngb-progressbar>
+            <span class="position-absolute end-0 top-0 me-1" style="line-height: 1.5rem;">{{ item.name }}</span>
+          </p>
+        </ion-col>
+      </ion-row>
+      <ion-item lines="none" class="ion-margin-top">
+        <ion-label><b>Strategy</b></ion-label>
+      </ion-item>
+      <ion-row class="w-100">
+        <table class="table mb-0">
+          <tbody>
+            <tr>
+              <td class="table-success text-center text-success">Best to beast:</td>
+              <td class="table-warning text-center text-warning">Avoid with:</td>
+            </tr>
+            <tr>
+              <td class="table-success">
+                <ion-chip [color]="item.color" outline="true" *ngFor="let item of bestToBeat"
+                  class="opacity-{{item.opacity}}" (click)="goSameType(item)">
+                  <ion-label>{{ item.name }}</ion-label>
+                </ion-chip>
+              </td>
+              <td class="table-warning">
+                <ion-chip [color]="item.color" outline="true" *ngFor="let item of avoidTo"
+                  class="opacity-{{item.opacity}}" (click)="goSameType(item)">
+                  <ion-label>{{ item.name }}</ion-label>
+                </ion-chip>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ion-row>
+
+      <ion-item lines="none" class="ion-margin-top">
+        <ion-label><b>Varieties</b></ion-label>
+        <ion-text style="width: 40%" *ngIf="pokemonSpecies?.varieties.length <= 1">Not available</ion-text>
+      </ion-item>
+      <ion-row>
+        <ion-col class="center" *ngFor="let variety of varieties; index as i" (click)="showPokemon(variety)"
+          class="d-flex flex-column align-items-center justify-content-center">
+          <ion-img [src]="getPokemonAvatar(variety)" style="width: 150px;"></ion-img>
+          <ion-text>{{ variety.name }}</ion-text>
+          <ion-row>
+            <ion-chip [color]="item.color" *ngFor="let item of varietyTypes[i]" class="opacity-{{item.opacity}}"
+              style="font-size: 11.5px;" (click)="goSameType(item)">
+              <ion-label>{{ item.name }}</ion-label>
+            </ion-chip>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+
+      <ion-item lines="none" class="ion-margin-top">
+        <ion-label><b>Evolution</b></ion-label>
+        <ion-text style="width: 40%" *ngIf="evolutions.length === 0">Not available</ion-text>
+      </ion-item>
+      <ion-row>
+        <ion-col size="12" class="ion-padding-vertical" *ngFor="let evolution of evolutions; index as i"
+          (click)="showPokemon(evolution)">
+          <ion-row>
+            <ion-col size="6" class="m-auto">
+              <ion-img [src]="getPokemonAvatar(evolution)" style="width: 200px;"></ion-img>
+            </ion-col>
+            <ion-col size="6" class="d-flex flex-column align-items-center justify-content-center">
+              <h1>{{ evolution.name }}</h1>
+              <ion-row style="margin: 4px 0px;">
+                <ion-chip [color]="item.color" *ngFor="let item of evolutionTypes[i]" class="opacity-{{item.opacity}}"
+                  (click)="goSameType(item)">
+                  <ion-label>{{ item.name }}</ion-label>
+                </ion-chip>
+              </ion-row>
+              <h3 *ngIf="evolution.min_level">(Min level: {{ evolution.min_level }})</h3>
+            </ion-col>
+          </ion-row>
+          <ion-img class="ion-padding-top" style="height: 3rem;" src="../../../../assets/img/arrow_down.png"
+            *ngIf="i < evolutions.length - 1"></ion-img>
+        </ion-col>
+      </ion-row>
+    </ion-list>
+  </ion-card-content>
 </ion-content>

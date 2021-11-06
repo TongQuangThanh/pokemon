@@ -1,3 +1,9 @@
+export const limit = 8;
+
+export const baseUrls = 'https://pokeapi.co/api/v2';
+
+export const filters = ['gender', 'growth-rate', 'pokemon-habitat', 'type', 'pokemon-color', 'pokemon-shape'];
+
 export const storageKey = {
   listAll: 'thnvn-pokemon'
 }
@@ -44,7 +50,7 @@ export const typesData = [
   },
   {
     "name": "rock",
-    "color": "secondary",
+    "color": "light",
     "opacity": 75,
     "url": "https://pokeapi.co/api/v2/type/6/"
   },
@@ -117,7 +123,7 @@ export const typesData = [
   {
     "name": "fairy",
     "color": "light",
-    "opacity": 100,
+    "opacity": 50,
     "url": "https://pokeapi.co/api/v2/type/18/"
   },
   {
@@ -138,7 +144,7 @@ export interface Responds {
   count: number,
   next: string,
   previous: string,
-  results: {name: string, url: string}[]
+  results: { name: string, url: string }[]
 }
 
 export interface Ability2 {
@@ -393,13 +399,8 @@ export interface GenerationVii {
   ultra_sun_ultra_moon: UltraSunUltraMoon;
 }
 
-export interface Icons2 {
-  front_default: string;
-  front_female?: any;
-}
-
 export interface GenerationViii {
-  icons: Icons2;
+  icons: Icons;
 }
 
 export interface Versions {
@@ -437,6 +438,11 @@ export interface Stat {
   stat: Stat2;
 }
 
+export interface NameUrl {
+  name: string;
+  url: string;
+}
+
 export interface Type2 {
   name: string;
   url: string;
@@ -445,6 +451,16 @@ export interface Type2 {
 export interface Type {
   slot: number;
   type: Type2;
+}
+
+export interface LocationArea {
+  name: string;
+  url: string;
+}
+
+export interface Encounter {
+  location_area: LocationArea;
+  version_details: Object;
 }
 
 export interface Pokemon {
@@ -466,4 +482,364 @@ export interface Pokemon {
   stats: Stat[];
   types: Type[];
   weight: number;
+}
+
+export interface DoubleDamageFrom {
+  name: string;
+  url: string;
+}
+
+export interface DoubleDamageTo {
+  name: string;
+  url: string;
+}
+
+export interface HalfDamageFrom {
+  name: string;
+  url: string;
+}
+
+export interface HalfDamageTo {
+  name: string;
+  url: string;
+}
+
+export interface NoDamageFrom {
+  name: string;
+  url: string;
+}
+
+export interface NoDamageTo {
+  name: string;
+  url: string;
+}
+
+export interface DamageRelations {
+  double_damage_from: DoubleDamageFrom[];
+  double_damage_to: DoubleDamageTo[];
+  half_damage_from: HalfDamageFrom[];
+  half_damage_to: HalfDamageTo[];
+  no_damage_from: NoDamageFrom[];
+  no_damage_to: NoDamageTo[];
+}
+
+export interface Generation {
+  name: string;
+  url: string;
+}
+
+export interface GameIndice2 {
+  game_index: number;
+  generation: Generation;
+}
+
+export interface MoveDamageClass {
+  name: string;
+  url: string;
+}
+
+export interface Move {
+  name: string;
+  url: string;
+}
+
+export interface Language {
+  name: string;
+  url: string;
+}
+
+export interface Name {
+  language: Language;
+  name: string;
+}
+
+export interface Pokemon2 {
+  name: string;
+  url: string;
+}
+
+export interface PokemonReference {
+  pokemon: Pokemon2;
+  slot: number;
+}
+
+export interface TypeRelation {
+  damage_relations: DamageRelations;
+  game_indices: GameIndice2[];
+  generation: Generation;
+  id: number;
+  move_damage_class: MoveDamageClass;
+  moves: Move[];
+  name: string;
+  names: Name[];
+  past_damage_relations: any[];
+  pokemon: PokemonReference[];
+}
+
+export interface Color {
+  name: string;
+  url: string;
+}
+
+export interface EggGroup {
+  name: string;
+  url: string;
+}
+
+export interface EvolutionChain2 {
+  url: string;
+}
+
+export interface EvolvesFromSpecies {
+  name: string;
+  url: string;
+}
+
+export interface Version {
+  name: string;
+  url: string;
+}
+
+export interface FlavorTextEntry {
+  flavor_text: string;
+  language: Language;
+  version: Version;
+}
+
+export interface Genera {
+  genus: string;
+  language: Language;
+}
+
+export interface Generation {
+  name: string;
+  url: string;
+}
+
+export interface GrowthRate {
+  name: string;
+  url: string;
+}
+
+export interface Habitat {
+  name: string;
+  url: string;
+}
+
+export interface Language3 {
+  name: string;
+  url: string;
+}
+
+export interface Area {
+  name: string;
+  url: string;
+}
+
+export interface PalParkEncounter {
+  area: Area;
+  base_score: number;
+  rate: number;
+}
+
+export interface Pokedex {
+  name: string;
+  url: string;
+}
+
+export interface PokedexNumber {
+  entry_number: number;
+  pokedex: Pokedex;
+}
+
+export interface Shape {
+  name: string;
+  url: string;
+}
+
+export interface Variety {
+  is_default: boolean;
+  pokemon: Pokemon2;
+}
+
+export interface PokemonSpecies {
+  base_happiness: number;
+  capture_rate: number;
+  color: Color;
+  egg_groups: EggGroup[];
+  evolution_chain: EvolutionChain2;
+  evolves_from_species: EvolvesFromSpecies;
+  flavor_text_entries: FlavorTextEntry[];
+  form_descriptions: any[];
+  forms_switchable: boolean;
+  gender_rate: number;
+  genera: Genera[];
+  generation: Generation;
+  growth_rate: GrowthRate;
+  habitat: Habitat;
+  has_gender_differences: boolean;
+  hatch_counter: number;
+  id: number;
+  is_baby: boolean;
+  is_legendary: boolean;
+  is_mythical: boolean;
+  name: string;
+  names: Name[];
+  order: number;
+  pal_park_encounters: PalParkEncounter[];
+  pokedex_numbers: PokedexNumber[];
+  shape: Shape;
+  varieties: Variety[];
+}
+
+export interface Trigger {
+  name: string;
+  url: string;
+}
+
+export interface Gender {
+  name: string;
+  url: string;
+}
+
+export interface EvolutionDetail {
+  gender?: any;
+  held_item?: any;
+  item?: any;
+  known_move?: any;
+  known_move_type?: any;
+  location?: any;
+  min_affection?: any;
+  min_beauty?: any;
+  min_happiness?: any;
+  min_level: number;
+  needs_overworld_rain: boolean;
+  party_species?: any;
+  party_type?: any;
+  relative_physical_stats?: any;
+  time_of_day: string;
+  trade_species?: any;
+  trigger: Trigger;
+  turn_upside_down: boolean;
+}
+
+export interface EvolutionDetail2 {
+  gender?: any;
+  held_item?: any;
+  item?: any;
+  known_move?: any;
+  known_move_type?: any;
+  location?: any;
+  min_affection?: any;
+  min_beauty?: any;
+  min_happiness?: any;
+  min_level: number;
+  needs_overworld_rain: boolean;
+  party_species?: any;
+  party_type?: any;
+  relative_physical_stats?: any;
+  time_of_day: string;
+  trade_species?: any;
+  trigger: Trigger;
+  turn_upside_down: boolean;
+}
+
+export interface Species {
+  name: string;
+  url: string;
+}
+
+export interface EvolvesTo2 {
+  evolution_details: EvolutionDetail2[];
+  evolves_to: any[];
+  is_baby: boolean;
+  species: Species;
+}
+
+export interface EvolvesTo {
+  evolution_details: EvolutionDetail[];
+  evolves_to: EvolvesTo2[];
+  is_baby: boolean;
+  species: Species;
+}
+
+export interface Chain {
+  evolution_details: any[];
+  evolves_to: EvolvesTo[];
+  is_baby: boolean;
+  species: Species;
+}
+
+export interface EvolutionChain {
+  baby_trigger_item?: any;
+  chain: Chain;
+  id: number;
+}
+
+export interface PokemonSpeciesDetail {
+  pokemon_species: PokemonSpecy;
+  rate: number;
+}
+
+export interface RequiredForEvolution {
+  name: string;
+  url: string;
+}
+
+export interface GenderRelation {
+  id: number;
+  name: string;
+  pokemon_species_details: PokemonSpeciesDetail[];
+  required_for_evolution: RequiredForEvolution[];
+}
+
+export interface Description {
+  description: string;
+  language: Language;
+}
+
+export interface Level {
+  experience: number;
+  level: number;
+}
+
+export interface PokemonSpecy {
+  name: string;
+  url: string;
+}
+
+export interface GrowthRateRelation {
+  descriptions: Description[];
+  formula: string;
+  id: number;
+  levels: Level[];
+  name: string;
+  pokemon_species: PokemonSpecy[];
+}
+
+export interface HabitatRelation {
+  id: number;
+  name: string;
+  names: Name[];
+  pokemon_species: PokemonSpecy[];
+}
+
+export interface ColorRelation {
+  id: number;
+  name: string;
+  names: Name[];
+  pokemon_species: PokemonSpecy[];
+}
+
+export interface AwesomeName {
+  awesome_name: string;
+  language: Language;
+}
+
+export interface PokemonShapeRelation {
+  awesome_names: AwesomeName[];
+  id: number;
+  name: string;
+  names: Name[];
+  pokemon_species: PokemonSpecy[];
 }
