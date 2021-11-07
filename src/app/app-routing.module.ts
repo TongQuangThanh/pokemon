@@ -36,7 +36,11 @@ const routes: Routes = [
   {
     path: 'wiki',
     loadChildren: () => import('./pages/wiki/wiki.module').then( m => m.WikiModule)
+  },  {
+    path: 'game',
+    loadChildren: () => import('./pages/game/game.module').then( m => m.GamePageModule)
   }
+
 
 ];
 
