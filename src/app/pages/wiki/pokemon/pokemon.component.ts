@@ -2,6 +2,7 @@ import { ModalController } from '@ionic/angular';
 import { Encounter, Pokemon, statsData, typesData, Type, Ability, TypeRelation, DoubleDamageTo, PokemonSpecies, Variety, EvolutionChain, DoubleDamageFrom, baseUrls } from './../../../models/model';
 import { Component, Input, OnInit } from '@angular/core';
 import { PokemonService } from '../../../services/pokemon.service';
+import { SharedService } from './../../../services/shared.service';
 
 @Component({
   selector: 'app-pokemon',
@@ -30,7 +31,7 @@ export class PokemonComponent implements OnInit {
     height: 100
   };
 
-  constructor(private modalController: ModalController, private pokemonService: PokemonService) { }
+  constructor(private modalController: ModalController, public pokemonService: PokemonService, public sharedService: SharedService) { }
 
   ngOnInit() {
     const promises = [];
@@ -149,11 +150,6 @@ export class PokemonComponent implements OnInit {
           hidden: ability.is_hidden
         }
       });
-  }
-
-  getPokemonAvatar(pokemon: Pokemon) {
-    return pokemon.sprites.other.dream_world.front_default ?
-      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other["official-artwork"].front_default;
   }
 
   showPokemon(pokemon: Pokemon) {

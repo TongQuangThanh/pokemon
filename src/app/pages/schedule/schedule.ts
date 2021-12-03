@@ -1,10 +1,10 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { AlertController, IonList, IonRouterOutlet, LoadingController, ModalController, ToastController, Config } from '@ionic/angular';
-
-import { ScheduleFilterPage } from '../schedule-filter/schedule-filter';
-import { ConferenceData } from '../../providers/conference-data';
-import { UserData } from '../../providers/user-data';
+import { StorageService } from './../../services/storage.service';
+import { Component, OnInit } from '@angular/core';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { DoubleDamageFrom, DoubleDamageTo, Pokemon, storageKey, TypeRelation, typesData } from '../../models/model';
+import { PokemonService } from '../../services/pokemon.service';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'page-schedule',
@@ -13,128 +13,101 @@ import { UserData } from '../../providers/user-data';
 })
 export class SchedulePage implements OnInit {
   // Gets a reference to the list element
-  @ViewChild('scheduleList', { static: true }) scheduleList: IonList;
-
-  ios: boolean;
-  dayIndex = 0;
+  pokemon: Pokemon;
   queryText = '';
-  segment = 'all';
-  excludeTracks: any = [];
-  shownSessions: any = [];
-  groups: any = [];
-  confDate: string;
-  showSearchbar: boolean;
+  queryTextUpdate = new Subject<string>();
+  loading = false;
+  player1: Pokemon[] = [];
 
-  constructor(
-    public alertCtrl: AlertController,
-    public confData: ConferenceData,
-    public loadingCtrl: LoadingController,
-    public modalCtrl: ModalController,
-    public router: Router,
-    public routerOutlet: IonRouterOutlet,
-    public toastCtrl: ToastController,
-    public user: UserData,
-    public config: Config
-  ) { }
+  constructor(public pokemonService: PokemonService, private storageService: StorageService,
+    public sharedService: SharedService) {
+    this.queryTextUpdate.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
+      this.loading = true;
+      this.pokemonService.searchPokemon(value).subscribe((data: Pokemon) => {
+        if (data) {
+          data['type'] = [];
+          data['avoidTo'] = [];
+          data['bestToBeat'] = [];
+          const promises = [];
+          for (const type of data.types) {
+            const typeDefined = typesData.find(it => it.name === type.type.name);
+            data['type'].push({
+              name: typeDefined.name,
+              color: typeDefined.color,
+              opacity: typeDefined.opacity,
+              url: typeDefined.url
+            })
+            promises.push(this.pokemonService.getDataByUrl(type.type.url).toPromise());
+          }
+          Promise.all(promises).then((values: TypeRelation[]) => {
+            for (const val of values) {
+              const damageFrom = val.damage_relations.double_damage_from.map((it: DoubleDamageFrom) => {
+                const typeDefined = typesData.find(type => type.name === it.name);
+                return {
+                  name: it.name,
+                  color: typeDefined.color,
+                  opacity: typeDefined.opacity,
+                  url: typeDefined.url
+                }
+              });
+              const damageTo = val.damage_relations.double_damage_to.map((it: DoubleDamageTo) => {
+                const typeDefined = typesData.find(type => type.name === it.name);
+                return {
+                  name: it.name,
+                  color: typeDefined.color,
+                  opacity: typeDefined.opacity,
+                  url: typeDefined.url
+                }
+              });
+              for (const item of damageFrom) {
+                if (!data['avoidTo'].find(po => po.name === item.name)) {
+                  data['avoidTo'].push(item);
+                }
+              }
+              for (const item of damageTo) {
+                if (!data['bestToBeat'].find(po => po.name === item.name)) {
+                  data['bestToBeat'].push(item);
+                }
+              }
+            }
+          });
+          this.pokemon = data;
+        }
+        this.loading = false;
+      }, error => {
+        this.loading = false;
+      });
+    });
+  }
 
   ngOnInit() {
-    this.updateSchedule();
-
-    this.ios = this.config.get('mode') === 'ios';
-  }
-
-  updateSchedule() {
-    // Close any open sliding items when the schedule updates
-    if (this.scheduleList) {
-      this.scheduleList.closeSlidingItems();
-    }
-
-    this.confData.getTimeline(this.dayIndex, this.queryText, this.excludeTracks, this.segment).subscribe((data: any) => {
-      this.shownSessions = data.shownSessions;
-      this.groups = data.groups;
-    });
-  }
-
-  async presentFilter() {
-    const modal = await this.modalCtrl.create({
-      component: ScheduleFilterPage,
-      swipeToClose: true,
-      presentingElement: this.routerOutlet.nativeEl,
-      componentProps: { excludedTracks: this.excludeTracks }
-    });
-    await modal.present();
-
-    const { data } = await modal.onWillDismiss();
-    if (data) {
-      this.excludeTracks = data;
-      this.updateSchedule();
-    }
-  }
-
-  async addFavorite(slidingItem: HTMLIonItemSlidingElement, sessionData: any) {
-    if (this.user.hasFavorite(sessionData.name)) {
-      // Prompt to remove favorite
-      this.removeFavorite(slidingItem, sessionData, 'Favorite already added');
-    } else {
-      // Add as a favorite
-      this.user.addFavorite(sessionData.name);
-
-      // Close the open item
-      slidingItem.close();
-
-      // Create a toast
-      const toast = await this.toastCtrl.create({
-        header: `${sessionData.name} was successfully added as a favorite.`,
-        duration: 3000,
-        buttons: [{
-          text: 'Close',
-          role: 'cancel'
-        }]
-      });
-
-      // Present the toast at the bottom of the page
-      await toast.present();
-    }
-
-  }
-
-  async removeFavorite(slidingItem: HTMLIonItemSlidingElement, sessionData: any, title: string) {
-    const alert = await this.alertCtrl.create({
-      header: title,
-      message: 'Would you like to remove this session from your favorites?',
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            // they clicked the cancel button, do not remove the session
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
-        },
-        {
-          text: 'Remove',
-          handler: () => {
-            // they want to remove this session from their favorites
-            this.user.removeFavorite(sessionData.name);
-            this.updateSchedule();
-
-            // close the sliding item and hide the option buttons
-            slidingItem.close();
-          }
+    this.storageService.get(storageKey.player1).then(
+      data => {
+        if (data) {
+          this.player1 = data;
         }
-      ]
-    });
-    // now present the alert on top of all other content
-    await alert.present();
+      },
+      error => console.log(error)
+    );
   }
 
-  async openSocial(network: string, fab: HTMLIonFabElement) {
-    const loading = await this.loadingCtrl.create({
-      message: `Posting to ${network}`,
-      duration: (Math.random() * 1000) + 500
-    });
-    await loading.present();
-    await loading.onWillDismiss();
-    fab.close();
+  checkExist() {
+    return !!this.player1.find(po => po.id === this.pokemon.id);
+  }
+
+  addPokemon() {
+    this.player1.push(this.pokemon);
+    this.storageService.set(storageKey.player1, this.player1).then(
+      data => {
+        this.pokemon = null;
+      },
+      error => {
+        console.log(error);
+      });
+  }
+
+  removePokemon(id: number) {
+    this.player1 = this.player1.filter(po => po.id !== id);
+    this.storageService.set(storageKey.player1, this.player1)
   }
 }

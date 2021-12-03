@@ -5,7 +5,8 @@ export const baseUrls = 'https://pokeapi.co/api/v2';
 export const filters = ['gender', 'growth-rate', 'pokemon-habitat', 'type', 'pokemon-color', 'pokemon-shape'];
 
 export const storageKey = {
-  listAll: 'thnvn-pokemon'
+  listAll: 'thnvn-pokemon',
+  player1: 'Player1'
 }
 
 export const statsData = [

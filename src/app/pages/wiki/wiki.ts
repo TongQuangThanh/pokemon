@@ -2,10 +2,12 @@ import { limit, NameUrl } from './../../models/model';
 import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { PokemonService } from '../../services/pokemon.service';
 import { Component, OnInit } from '@angular/core';
-import { Pokemon, Responds, storageKey } from '../../models/model';
+import { Pokemon, Responds } from '../../models/model';
 import { StorageService } from '../../services/storage.service';
-import { PokemonComponent } from './pokemon/pokemon.component';
 import { FilterComponent } from './filter/filter';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'page-wiki',
@@ -16,6 +18,7 @@ export class WikiPage implements OnInit {
   results: Pokemon[] = [];
   nextUrl = '';
   queryText = '';
+  queryTextUpdate = new Subject<string>();
   showSearchBar = false;
   loading = true;
   searchMode = false;
@@ -31,34 +34,28 @@ export class WikiPage implements OnInit {
   habitats = [];
 
   constructor(private pokemonService: PokemonService, private storageService: StorageService,
-    public routerOutlet: IonRouterOutlet, private modalController: ModalController) { }
+    public routerOutlet: IonRouterOutlet, private modalController: ModalController,
+    public sharedService: SharedService) {
+    this.queryTextUpdate.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
+      this.pokemonService.searchPokemon(value).subscribe((data: Pokemon) => {
+        this.results = [data];
+        this.searchMode = true;
+      }, error => {
+        this.results = [];
+      });
+    });
+  }
 
   ngOnInit() {
     this.loadData();
   }
 
-  getPokemonAvatar(pokemon: Pokemon) {
-    return pokemon.sprites.other.dream_world.front_default ?
-      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other["official-artwork"].front_default;
-  }
-
-  searchPokemon() {
-    this.loading = true;
-    if (this.queryText) {
-      this.pokemonService.searchPokemon(this.queryText).subscribe((data: Pokemon) => {
-        this.results = [data];
-        this.searchMode = true;
-        this.loading = false;
-      }, error => {
-        console.log(error);
-        this.loading = false;
-        this.results = [];
-      });
-    } else {
-      this.results = [];
-      this.searchMode = true;
-      this.loading = false;
-    }
+  cancelSearchBar() {
+    this.showSearchBar = false;
+    this.results = [];
+    this.loading = false;
+    this.searchMode = false;
+    this.loadData();
   }
 
   loadData() {
@@ -90,7 +87,6 @@ export class WikiPage implements OnInit {
           for (const val of values) {
             this.results.push(val);
           }
-          // this.storageService.set(storageKey.listAll, this.results);
           this.loading = false;
         }, error => {
           console.log(error);
@@ -98,34 +94,6 @@ export class WikiPage implements OnInit {
         });
       });
     }
-  }
-
-  clearSearch() {
-    this.searchMode = false;
-    this.loadData();
-  }
-
-  async showDetailPokemon(id: number) {
-    let selectedPokemon = this.results.find(pokemon => pokemon.id === id);
-    if (!selectedPokemon) {
-      selectedPokemon = await this.pokemonService.searchPokemon(id).toPromise();
-    }
-    const modal = await this.modalController.create({
-      component: PokemonComponent,
-      componentProps: {
-        'pokemon': selectedPokemon
-      }
-    });
-    await modal.present();
-    modal.onWillDismiss().then((result: any) => {
-      if (result && result.data) {
-        if (result.data.id) {
-          this.showDetailPokemon(result.data.id);
-        } else {
-          // this.filterType();
-        }
-      }
-    });
   }
 
   async presentFilter() {

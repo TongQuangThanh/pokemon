@@ -12,7 +12,7 @@
       <ion-img [src]="item"></ion-img>
     </ion-slide>
   </ion-slides> -->
-  <ion-img [src]="getPokemonAvatar(pokemon)" class="ion-margin"></ion-img>
+  <ion-img [src]="sharedService.getPokemonAvatar(pokemon)" class="ion-margin"></ion-img>
   <ion-card-header>
     <h1>{{ pokemon.name }}</h1>
     <ion-chip [color]="item.color" *ngFor="let item of typeArray" class="opacity-{{item.opacity}}"
@@ -216,7 +216,7 @@
       <ion-row>
         <ion-col class="center" *ngFor="let variety of varieties; index as i" (click)="showPokemon(variety)"
           class="d-flex flex-column align-items-center justify-content-center">
-          <ion-img [src]="getPokemonAvatar(variety)" style="width: 150px;"></ion-img>
+          <ion-img [src]="sharedService.getPokemonAvatar(variety)" style="width: 150px;"></ion-img>
           <ion-text>{{ variety.name }}</ion-text>
           <ion-row>
             <ion-chip [color]="item.color" *ngFor="let item of varietyTypes[i]" class="opacity-{{item.opacity}}"
@@ -236,7 +236,7 @@
           (click)="showPokemon(evolution)">
           <ion-row>
             <ion-col size="6" class="m-auto">
-              <ion-img [src]="getPokemonAvatar(evolution)" style="width: 200px;"></ion-img>
+              <ion-img [src]="sharedService.getPokemonAvatar(evolution)" style="width: 200px;"></ion-img>
             </ion-col>
             <ion-col size="6" class="d-flex flex-column align-items-center justify-content-center">
               <h1>{{ evolution.name }}</h1>

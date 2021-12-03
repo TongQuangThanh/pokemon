@@ -1,104 +1,98 @@
 <ion-header translucent="true">
   <ion-toolbar>
-    <ion-buttons *ngIf="!showSearchbar" slot="start">
+    <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-segment *ngIf="ios" [(ngModel)]="segment" (ionChange)="updateSchedule()">
-      <ion-segment-button value="all">
-        All
-      </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Favorites
-      </ion-segment-button>
-    </ion-segment>
-    <ion-title *ngIf="!ios && !showSearchbar">Schedule</ion-title>
-    <ion-searchbar *ngIf="showSearchbar" showCancelButton="always" [(ngModel)]="queryText" (ionChange)="updateSchedule()" (ionCancel)="showSearchbar = false" placeholder="Search"></ion-searchbar>
-    <ion-buttons slot="end">
-      <ion-button *ngIf="!ios && !showSearchbar" (click)="showSearchbar = true">
-        <ion-icon slot="icon-only" name="search"></ion-icon>
-      </ion-button>
-      <ion-button *ngIf="!showSearchbar" (click)="presentFilter()">
-        <span *ngIf="ios">Filter</span>
-        <span *ngIf="!ios">
-          <ion-icon slot="icon-only" name="options"></ion-icon>
-        </span>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-  <ion-toolbar *ngIf="!ios">
-    <ion-segment [(ngModel)]="segment" (ionChange)="updateSchedule()">
-      <ion-segment-button value="all">
-        All
-      </ion-segment-button>
-      <ion-segment-button value="favorites">
-        Favorites
-      </ion-segment-button>
-    </ion-segment>
+    <ion-title>Choose your team</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Schedule</ion-title>
-    </ion-toolbar>
-    <ion-toolbar>
-      <ion-searchbar [(ngModel)]="queryText" (ionChange)="updateSchedule()" placeholder="Search"></ion-searchbar>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid fixed>
+    <div style="display: flex; align-items: flex-end;">
+      <ion-item style="flex-grow: 1;">
+        <ion-label position="floating">Search pokemon you want to add by name or id</ion-label>
+        <ion-input [(ngModel)]="queryText" (ionCancel)="queryText = ''" (ngModelChange)="queryTextUpdate.next($event)">
+        </ion-input>
+      </ion-item>
+    </div>
 
-  <ion-list #scheduleList [hidden]="shownSessions === 0">
-    <ion-item-group *ngFor="let group of groups" [hidden]="group.hide">
-      <ion-item-divider sticky>
-        <ion-label>
-          {{group.time}}
-        </ion-label>
-      </ion-item-divider>
-
-      <ion-item-sliding *ngFor="let session of group.sessions" #slidingItem [attr.track]="session.tracks[0] | lowercase"
-        [hidden]="session.hide">
-        <ion-item routerLink="/app/tabs/schedule/session/{{session.id}}">
+    <ion-row *ngIf="pokemon && !loading">
+      <ion-col sizeXs="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2" class="border-bottom">
+        <ion-row>
+          <ion-col size="6" class="ion-no-padding">
+            <img [src]="sharedService.getPokemonAvatar(pokemon)">
+          </ion-col>
+          <ion-col size="6" class="ion-no-padding ion-text-center d-flex flex-column">
+            <h2>{{ pokemon.name }}</h2>
+            <div class="flex-grow-1">
+              <ion-chip [color]="item.color" *ngFor="let item of pokemon.type" class="opacity-{{item.opacity}}"
+                (click)="goSameType(item)">
+                <ion-label>{{ item.name }}</ion-label>
+              </ion-chip>
+            </div>
+            <div *ngIf="!checkExist()">
+              <ion-button color="success" fill="outline" shape="round" (click)="addPokemon()">
+                <ion-icon name="add"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-title class="ion-text-center ion-margin-top">Your team</ion-title>
+    <ion-row *ngIf="loading">
+      <ion-col sizeXs="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2">
+        <ion-item>
+          <ion-thumbnail slot="start">
+            <ion-skeleton-text></ion-skeleton-text>
+          </ion-thumbnail>
           <ion-label>
-            <h3>{{session.name}}</h3>
+            <h3>
+              <ion-skeleton-text animated style="width: 30%"></ion-skeleton-text>
+            </h3>
             <p>
-              {{session.timeStart}} &mdash; {{session.timeEnd}}: {{session.location}}
+              <ion-skeleton-text animated style="width: 50%"></ion-skeleton-text>
+            </p>
+            <p>
+              <ion-skeleton-text class="ion-float-left" animated style="width: 30%"></ion-skeleton-text>
+              <ion-skeleton-text class="ion-float-right" animated style="width: 30%"></ion-skeleton-text>
             </p>
           </ion-label>
         </ion-item>
-        <ion-item-options>
-          <ion-item-option color="favorite" (click)="addFavorite(slidingItem, session)" *ngIf="segment === 'all'">
-            Favorite
-          </ion-item-option>
-          <ion-item-option color="danger" (click)="removeFavorite(slidingItem, session, 'Remove Favorite')"
-            *ngIf="segment === 'favorites'">
-            Remove
-          </ion-item-option>
-        </ion-item-options>
-      </ion-item-sliding>
-    </ion-item-group>
-  </ion-list>
-
-  <ion-list-header [hidden]="shownSessions > 0">
-    No Sessions Found
-  </ion-list-header>
-
-  <ion-fab slot="fixed" vertical="bottom" horizontal="end" #fab>
-    <ion-fab-button>
-      <ion-icon name="share-social"></ion-icon>
-    </ion-fab-button>
-    <ion-fab-list side="top">
-      <ion-fab-button color="vimeo" (click)="openSocial('Vimeo', fab)">
-        <ion-icon name="logo-vimeo"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="instagram" (click)="openSocial('Instagram', fab)">
-        <ion-icon name="logo-instagram"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="twitter" (click)="openSocial('Twitter', fab)">
-        <ion-icon name="logo-twitter"></ion-icon>
-      </ion-fab-button>
-      <ion-fab-button color="facebook" (click)="openSocial('Facebook', fab)">
-        <ion-icon name="logo-facebook"></ion-icon>
-      </ion-fab-button>
-    </ion-fab-list>
-  </ion-fab>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col *ngFor="let pokemon of player1" sizeXs="12" sizeSm="6" sizeMd="4" sizeLg="3" sizeXl="2">
+        <ion-row class="border-bottom border-light ion-padding-vertical ion-margin-top">
+          <ion-col size="6" class="ion-no-padding">
+            <img [src]="sharedService.getPokemonAvatar(pokemon)">
+          </ion-col>
+          <ion-col size="6" class="ion-no-padding ion-text-center d-flex flex-column">
+            <h2>{{ pokemon.name }}</h2>
+            <div class="flex-grow-1">
+              <ion-chip [color]="item.color" *ngFor="let item of pokemon.type" class="opacity-{{item.opacity}}"
+                (click)="goSameType(item)">
+                <ion-label>{{ item.name }}</ion-label>
+              </ion-chip>
+            </div>
+            <div class="w-100">
+              <ion-button color="primary" fill="outline" shape="round" (click)="sharedService.showDetailPokemon(pokemon)">
+                <ion-icon name="information"></ion-icon>
+              </ion-button>
+              <ion-button color="danger" fill="outline" shape="round" (click)="removePokemon(pokemon.id)">
+                <ion-icon name="close"></ion-icon>
+              </ion-button>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="!pokemon && !loading && !player1" class="justify-content-center">
+      <ion-title>No data</ion-title>
+    </ion-row>
+    <ion-button expand="full" [disabled]="!player1 || player1.length === 0" routerLink="/play">
+      <ion-icon slot="start" name="game-controller"></ion-icon> GO!!!
+    </ion-button>
+  </ion-grid>
 </ion-content>
