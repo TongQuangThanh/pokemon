@@ -236,7 +236,11 @@
           (click)="showPokemon(evolution)">
           <ion-row>
             <ion-col size="6" class="m-auto">
+<<<<<<< HEAD
               <ion-img [src]="sharedService.getPokemonAvatar(evolution)" style="width: 200px;"></ion-img>
+=======
+              <ion-img [src]="getPokemonAvatar(evolution)" style="width: 100%;"></ion-img>
+>>>>>>> 87f5b166b18e41edcccba925399f7b0ff1314c12
             </ion-col>
             <ion-col size="6" class="d-flex flex-column align-items-center justify-content-center">
               <h1>{{ evolution.name }}</h1>

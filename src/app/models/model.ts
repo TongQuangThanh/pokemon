@@ -20,132 +20,132 @@ export const statsData = [
 
 export const typesData = [
   {
-    "name": "normal",
-    "color": "primary",
-    "opacity": 100,
-    "url": "https://pokeapi.co/api/v2/type/1/"
+    name: 'normal',
+    color: 'primary',
+    opacity: 100,
+    url: 'https://pokeapi.co/api/v2/type/1/'
   },
   {
-    "name": "fighting",
-    "color": "danger",
-    "opacity": 50,
-    "url": "https://pokeapi.co/api/v2/type/2/"
+    name: 'fighting',
+    color: 'danger',
+    opacity: 50,
+    url: 'https://pokeapi.co/api/v2/type/2/'
   },
   {
-    "name": "flying",
-    "color": "primary",
-    "opacity": 50,
-    "url": "https://pokeapi.co/api/v2/type/3/"
+    name: 'flying',
+    color: 'primary',
+    opacity: 50,
+    url: 'https://pokeapi.co/api/v2/type/3/'
   },
   {
-    "name": "poison",
-    "color": "success",
-    "opacity": 75,
-    "url": "https://pokeapi.co/api/v2/type/4/"
+    name: 'poison',
+    color: 'success',
+    opacity: 75,
+    url: 'https://pokeapi.co/api/v2/type/4/'
   },
   {
-    "name": "ground",
-    "color": "warning",
-    "opacity": 100,
-    "url": "https://pokeapi.co/api/v2/type/5/"
+    name: 'ground',
+    color: 'warning',
+    opacity: 100,
+    url: 'https://pokeapi.co/api/v2/type/5/'
   },
   {
-    "name": "rock",
-    "color": "light",
-    "opacity": 75,
-    "url": "https://pokeapi.co/api/v2/type/6/"
+    name: 'rock',
+    color: 'light',
+    opacity: 75,
+    url: 'https://pokeapi.co/api/v2/type/6/'
   },
   {
-    "name": "bug",
-    "color": "warning",
-    "opacity": 75,
-    "url": "https://pokeapi.co/api/v2/type/7/"
+    name: 'bug',
+    color: 'warning',
+    opacity: 75,
+    url: 'https://pokeapi.co/api/v2/type/7/'
   },
   {
-    "name": "ghost",
-    "color": "light",
-    "opacity": 100,
-    "url": "https://pokeapi.co/api/v2/type/8/"
+    name: 'ghost',
+    color: 'light',
+    opacity: 100,
+    url: 'https://pokeapi.co/api/v2/type/8/'
   },
   {
-    "name": "steel",
-    "color": "secondary",
-    "opacity": 100,
-    "url": "https://pokeapi.co/api/v2/type/9/"
+    name: 'steel',
+    color: 'secondary',
+    opacity: 100,
+    url: 'https://pokeapi.co/api/v2/type/9/'
   },
   {
-    "name": "fire",
-    "color": "danger",
-    "opacity": 100,
-    "url": "https://pokeapi.co/api/v2/type/10/"
+    name: 'fire',
+    color: 'danger',
+    opacity: 100,
+    url: 'https://pokeapi.co/api/v2/type/10/'
   },
   {
-    "name": "water",
-    "color": "tertiary",
-    "opacity": 100,
-    "url": "https://pokeapi.co/api/v2/type/11/"
+    name: 'water',
+    color: 'tertiary',
+    opacity: 100,
+    url: 'https://pokeapi.co/api/v2/type/11/'
   },
   {
-    "name": "grass",
-    "color": "success",
-    "opacity": 100,
-    "url": "https://pokeapi.co/api/v2/type/12/"
+    name: 'grass',
+    color: 'success',
+    opacity: 100,
+    url: 'https://pokeapi.co/api/v2/type/12/'
   },
   {
-    "name": "electric",
-    "color": "tertiary",
-    "opacity": 50,
-    "url": "https://pokeapi.co/api/v2/type/13/"
+    name: 'electric',
+    color: 'tertiary',
+    opacity: 50,
+    url: 'https://pokeapi.co/api/v2/type/13/'
   },
   {
-    "name": "psychic",
-    "color": "dark",
-    "opacity": 50,
-    "url": "https://pokeapi.co/api/v2/type/14/"
+    name: 'psychic',
+    color: 'dark',
+    opacity: 50,
+    url: 'https://pokeapi.co/api/v2/type/14/'
   },
   {
-    "name": "ice",
-    "color": "tertiary",
-    "opacity": 75,
-    "url": "https://pokeapi.co/api/v2/type/15/"
+    name: 'ice',
+    color: 'tertiary',
+    opacity: 75,
+    url: 'https://pokeapi.co/api/v2/type/15/'
   },
   {
-    "name": "dragon",
-    "color": "danger",
-    "opacity": 50,
-    "url": "https://pokeapi.co/api/v2/type/16/"
+    name: 'dragon',
+    color: 'danger',
+    opacity: 50,
+    url: 'https://pokeapi.co/api/v2/type/16/'
   },
   {
-    "name": "dark",
-    "color": "dark",
-    "opacity": 75,
-    "url": "https://pokeapi.co/api/v2/type/17/"
+    name: 'dark',
+    color: 'dark',
+    opacity: 75,
+    url: 'https://pokeapi.co/api/v2/type/17/'
   },
   {
-    "name": "fairy",
-    "color": "light",
-    "opacity": 50,
-    "url": "https://pokeapi.co/api/v2/type/18/"
+    name: 'fairy',
+    color: 'light',
+    opacity: 50,
+    url: 'https://pokeapi.co/api/v2/type/18/'
   },
   {
-    "name": "unknown",
-    "color": "primary",
-    "opacity": 75,
-    "url": "https://pokeapi.co/api/v2/type/10001/"
+    name: 'unknown',
+    color: 'primary',
+    opacity: 75,
+    url: 'https://pokeapi.co/api/v2/type/10001/'
   },
   {
-    "name": "shadow",
-    "color": "dark",
-    "opacity": 100,
-    "url": "https://pokeapi.co/api/v2/type/10002/"
+    name: 'shadow',
+    color: 'dark',
+    opacity: 100,
+    url: 'https://pokeapi.co/api/v2/type/10002/'
   }
 ];
 
 export interface Responds {
-  count: number,
-  next: string,
-  previous: string,
-  results: { name: string, url: string }[]
+  count: number;
+  next: string;
+  previous: string;
+  results: { name: string, url: string }[];
 }
 
 export interface Ability2 {
@@ -461,7 +461,7 @@ export interface LocationArea {
 
 export interface Encounter {
   location_area: LocationArea;
-  version_details: Object;
+  version_details: any;
 }
 
 export interface Pokemon {

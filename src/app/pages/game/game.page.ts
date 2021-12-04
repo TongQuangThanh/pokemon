@@ -7,11 +7,11 @@ import { PokemonService } from '../../services/pokemon.service';
 import { SharedService } from '../../services/shared.service';
 
 @Component({
-  selector: 'page-schedule',
-  templateUrl: 'schedule.html',
-  styleUrls: ['./schedule.scss'],
+  selector: 'app-game',
+  templateUrl: './game.page.html',
+  styleUrls: ['./game.page.scss'],
 })
-export class SchedulePage implements OnInit {
+export class GamePage implements OnInit {
   // Gets a reference to the list element
   pokemon: Pokemon;
   queryText = '';

@@ -18,8 +18,8 @@ import { Storage } from '@ionic/storage';
 export class AppComponent implements OnInit {
   appPages = [
     {
-      title: 'Schedule',
-      url: '/app/tabs/schedule',
+      title: 'Game',
+      url: '/app/tabs/game',
       icon: 'game-controller'
     },
     // {

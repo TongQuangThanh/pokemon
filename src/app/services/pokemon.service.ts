@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { baseUrls, PokemonSpecies, EvolutionChain, Encounter, limit, Pokemon, Responds, TypeRelation, GenderRelation, GrowthRateRelation, HabitatRelation, ColorRelation, PokemonShapeRelation } from './../models/model';
+import { baseUrls, limit, Pokemon, Responds } from './../models/model';
 
 @Injectable({
   providedIn: 'root'

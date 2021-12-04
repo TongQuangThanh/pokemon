@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TabsPage } from './tabs-page';
-import { SchedulePage } from '../schedule/schedule';
+import { GamePage } from '../game/game.page';
 import { WikiPage } from '../wiki/wiki';
 
 
@@ -11,11 +11,11 @@ const routes: Routes = [
     component: TabsPage,
     children: [
       {
-        path: 'schedule',
+        path: 'game',
         children: [
           {
             path: '',
-            component: SchedulePage,
+            component: GamePage,
           }
         ]
       },
@@ -56,7 +56,7 @@ const routes: Routes = [
       },
       {
         path: '',
-        redirectTo: '/app/tabs/schedule',
+        redirectTo: '/app/tabs/game',
         pathMatch: 'full'
       }
     ]
