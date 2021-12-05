@@ -3,7 +3,6 @@ import { ModalController, IonRouterOutlet } from '@ionic/angular';
 import { PokemonService } from '../../services/pokemon.service';
 import { Component, OnInit } from '@angular/core';
 import { Pokemon, Responds } from '../../models/model';
-import { StorageService } from '../../services/storage.service';
 import { FilterComponent } from './filter/filter';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -33,29 +32,10 @@ export class WikiPage implements OnInit {
   types = [];
   habitats = [];
 
-  constructor(private pokemonService: PokemonService, private storageService: StorageService,
-<<<<<<< HEAD
-    public routerOutlet: IonRouterOutlet, private modalController: ModalController,
-    public sharedService: SharedService) {
+  constructor(private pokemonService: PokemonService, public routerOutlet: IonRouterOutlet, private modalController: ModalController,
+              public sharedService: SharedService) {
     this.queryTextUpdate.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
       this.pokemonService.searchPokemon(value).subscribe((data: Pokemon) => {
-=======
-              public routerOutlet: IonRouterOutlet, private modalController: ModalController) { }
-
-  ngOnInit() {
-    this.loadData();
-  }
-
-  getPokemonAvatar(pokemon: Pokemon) {
-    return pokemon.sprites.other.dream_world.front_default ?
-      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other['official-artwork'].front_default;
-  }
-
-  searchPokemon() {
-    this.loading = true;
-    if (this.queryText) {
-      this.pokemonService.searchPokemon(this.queryText).subscribe((data: Pokemon) => {
->>>>>>> 87f5b166b18e41edcccba925399f7b0ff1314c12
         this.results = [data];
         this.searchMode = true;
       }, error => {
@@ -114,37 +94,6 @@ export class WikiPage implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-=======
-  clearSearch() {
-    this.searchMode = false;
-    this.loadData();
-  }
-
-  async showDetailPokemon(id: number) {
-    let selectedPokemon = this.results.find(pokemon => pokemon.id === id);
-    if (!selectedPokemon) {
-      selectedPokemon = await this.pokemonService.searchPokemon(id).toPromise();
-    }
-    const modal = await this.modalController.create({
-      component: PokemonComponent,
-      componentProps: {
-        pokemon: selectedPokemon
-      }
-    });
-    await modal.present();
-    modal.onWillDismiss().then((result: any) => {
-      if (result && result.data) {
-        if (result.data.id) {
-          this.showDetailPokemon(result.data.id);
-        } else {
-          // this.filterType();
-        }
-      }
-    });
-  }
-
->>>>>>> 87f5b166b18e41edcccba925399f7b0ff1314c12
   async presentFilter() {
     const modal = await this.modalController.create({
       component: FilterComponent,

@@ -7,7 +7,7 @@ export const filters = ['gender', 'growth-rate', 'pokemon-habitat', 'type', 'pok
 export const storageKey = {
   listAll: 'thnvn-pokemon',
   player1: 'Player1'
-}
+};
 
 export const statsData = [
   { name: 'hp', color: 'success', value: 255 },

@@ -3,7 +3,6 @@ import { Encounter, Pokemon, statsData, typesData, Type, Ability, TypeRelation, 
         PokemonSpecies, Variety, EvolutionChain, DoubleDamageFrom } from './../../../models/model';
 import { Component, Input, OnInit } from '@angular/core';
 import { PokemonService } from '../../../services/pokemon.service';
-import { SharedService } from './../../../services/shared.service';
 
 @Component({
   selector: 'app-pokemon',
@@ -32,7 +31,7 @@ export class PokemonComponent implements OnInit {
     height: 100
   };
 
-  constructor(private modalController: ModalController, public pokemonService: PokemonService, public sharedService: SharedService) { }
+  constructor(private modalController: ModalController, public pokemonService: PokemonService) { }
 
   ngOnInit() {
     const promises = [];
@@ -155,14 +154,6 @@ export class PokemonComponent implements OnInit {
       });
   }
 
-<<<<<<< HEAD
-=======
-  getPokemonAvatar(pokemon: Pokemon) {
-    return pokemon.sprites.other.dream_world.front_default ?
-      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other['official-artwork'].front_default;
-  }
-
->>>>>>> 87f5b166b18e41edcccba925399f7b0ff1314c12
   showPokemon(pokemon: Pokemon) {
     if (!(pokemon.id === this.pokemon.id)) {
       this.modalController.dismiss(pokemon);

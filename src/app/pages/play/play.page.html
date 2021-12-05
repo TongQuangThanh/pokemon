@@ -4,21 +4,37 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>Play</ion-title>
+    <ion-buttons slot="end">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content fullscreen="true">
-  <ion-grid fixed>
-    <!-- <ion-row>
-      <ion-col style="width: 100px;" *ngFor="let pokemon of player1">
-        <img [src]="sharedService.getPokemonAvatar(pokemon)">
-      </ion-col>
-    </ion-row> -->
-    <ion-slides pager="true" [options]="slideOpts">
-      <ion-slide *ngFor="let pokemon of player1" class="flex-column">
-        <img [src]="sharedService.getPokemonAvatar(pokemon)" style="width: 100px;">
-        <h1>{{pokemon.name}}</h1>
-      </ion-slide>
-    </ion-slides>
+  <ion-grid fixed class="ion-no-padding d-flex flex-column h-100">
+    <ion-row>
+      <ion-slides [options]="{ slidesPerView: 3, loop: true }">
+        <ion-slide *ngFor="let pokemon of computer" class="flex-column">
+          <img [src]="pokemonService.getPokemonAvatar(pokemon)" style="height: 50px;">
+          <h5>{{ pokemon.name }}</h5>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
+    <div id="main" class="position-relative ion-margin-vertical flex-grow-1">
+      <div id="computer" class="w-100 h-100 bg-danger position-absolute text-end" *ngIf="computerSelected">
+        <img [src]="pokemonService.getPokemonAvatar(computerSelected)" style="height: 200px;">
+      </div>
+      <div id="player1" class="w-100 h-100 bg-primary position-absolute bottom-0" *ngIf="player1Selected">
+        <img [src]="pokemonService.getPokemonAvatar(player1Selected)" style="height: 200px;">
+      </div>
+    </div>
+    <ion-row>
+      <ion-slides [options]="{ slidesPerView: 3, loop: true }">
+        <ion-slide *ngFor="let pokemon of player1" class="flex-column" (click)="choosePokemon(pokemon)">
+          <img [src]="pokemonService.getPokemonAvatar(pokemon)" style="height: 50px;">
+          <h5>{{ pokemon.name }}</h5>
+        </ion-slide>
+      </ion-slides>
+    </ion-row>
   </ion-grid>
 </ion-content>

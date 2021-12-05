@@ -6,14 +6,14 @@ import { TabsPage } from './tabs-page';
 import { TabsPageRoutingModule } from './tabs-page-routing.module';
 
 import { AboutModule } from '../about/about.module';
-import { ScheduleModule } from '../schedule/schedule.module';
+import { GamePageModule } from '../game/game.module';
 
 @NgModule({
   imports: [
     AboutModule,
     CommonModule,
     IonicModule,
-    ScheduleModule,
+    GamePageModule,
     TabsPageRoutingModule
   ],
   declarations: [

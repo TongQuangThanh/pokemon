@@ -4,7 +4,6 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { DoubleDamageFrom, DoubleDamageTo, Pokemon, storageKey, TypeRelation, typesData } from '../../models/model';
 import { PokemonService } from '../../services/pokemon.service';
-import { SharedService } from '../../services/shared.service';
 
 @Component({
   selector: 'app-game',
@@ -19,8 +18,7 @@ export class GamePage implements OnInit {
   loading = false;
   player1: Pokemon[] = [];
 
-  constructor(public pokemonService: PokemonService, private storageService: StorageService,
-    public sharedService: SharedService) {
+  constructor(public pokemonService: PokemonService, private storageService: StorageService) {
     this.queryTextUpdate.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
       this.loading = true;
       this.pokemonService.searchPokemon(value).subscribe((data: Pokemon) => {
@@ -36,7 +34,7 @@ export class GamePage implements OnInit {
               color: typeDefined.color,
               opacity: typeDefined.opacity,
               url: typeDefined.url
-            })
+            });
             promises.push(this.pokemonService.getDataByUrl(type.type.url).toPromise());
           }
           Promise.all(promises).then((values: TypeRelation[]) => {
@@ -48,7 +46,7 @@ export class GamePage implements OnInit {
                   color: typeDefined.color,
                   opacity: typeDefined.opacity,
                   url: typeDefined.url
-                }
+                };
               });
               const damageTo = val.damage_relations.double_damage_to.map((it: DoubleDamageTo) => {
                 const typeDefined = typesData.find(type => type.name === it.name);
@@ -57,7 +55,7 @@ export class GamePage implements OnInit {
                   color: typeDefined.color,
                   opacity: typeDefined.opacity,
                   url: typeDefined.url
-                }
+                };
               });
               for (const item of damageFrom) {
                 if (!data['avoidTo'].find(po => po.name === item.name)) {
@@ -108,6 +106,6 @@ export class GamePage implements OnInit {
 
   removePokemon(id: number) {
     this.player1 = this.player1.filter(po => po.id !== id);
-    this.storageService.set(storageKey.player1, this.player1)
+    this.storageService.set(storageKey.player1, this.player1);
   }
 }

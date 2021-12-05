@@ -25,6 +25,11 @@ export class PokemonService {
   searchPokemon(str: string | number): Observable<Pokemon> {
     return this.http.get<Pokemon>(`${baseUrls}/pokemon/${str}`);
   }
+
+  getPokemonAvatar(pokemon: Pokemon) {
+    return pokemon.sprites.other.dream_world.front_default ?
+      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other['official-artwork'].front_default;
+  }
 }
 
   // getEvolutionChain(url?: string): Observable<EvolutionChain | Responds> {

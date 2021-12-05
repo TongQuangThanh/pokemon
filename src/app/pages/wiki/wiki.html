@@ -27,7 +27,7 @@
         (click)="sharedService.showDetailPokemon(pokemon)">
         <ion-item>
           <ion-thumbnail slot="start">
-            <img [src]="sharedService.getPokemonAvatar(pokemon)">
+            <img [src]="pokemonService.getPokemonAvatar(pokemon)">
           </ion-thumbnail>
           <ion-label>
             <h2>{{ pokemon.name }}</h2>
