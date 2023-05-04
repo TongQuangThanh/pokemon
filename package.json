@@ -34,18 +34,8 @@
     "@ionic-native/status-bar": "^5.36.0",
     "@ionic/angular": "^5.9.1",
     "@ionic/storage": "^2.1.3",
-    "cordova-android": "^8.1.0",
-    "cordova-ios": "^5.1.1",
-    "cordova-plugin-device": "^2.0.3",
-    "cordova-plugin-inappbrowser": "^3.2.0",
-    "cordova-plugin-ionic-keyboard": "^2.2.0",
-    "cordova-plugin-ionic-webview": "^4.1.3",
-    "cordova-plugin-splashscreen": "^5.0.3",
-    "cordova-plugin-statusbar": "^2.4.3",
-    "cordova-plugin-whitelist": "^1.3.4",
     "core-js": "^3.6.4",
     "rxjs": "^6.5.4",
-    "sw-toolbox": "3.6.0",
     "swiper": "^6.8.4",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.2"
@@ -57,36 +47,8 @@
     "@angular/language-service": "^11.2.14",
     "@ionic/angular-toolkit": "^2.1.2",
     "@ionic/lab": "^2.0.19",
-    "@types/jasmine": "3.4.6",
-    "@types/jasminewd2": "2.0.8",
     "@types/node": "^12.11.1",
-    "codelyzer": "^5.1.2",
-    "jasmine-core": "~3.5.0",
-    "jasmine-spec-reporter": "~5.0.0",
-    "karma": "~6.4.2",
-    "karma-chrome-launcher": "~3.1.0",
-    "karma-coverage-istanbul-reporter": "~3.0.2",
-    "karma-jasmine": "~4.0.0",
-    "karma-jasmine-html-reporter": "^1.5.0",
-    "protractor": "~7.0.0",
-    "puppeteer": "^1.20.0",
     "ts-node": "8.5.0",
-    "tslint": "~6.1.0",
     "typescript": "~4.0.8"
-  },
-  "cordova": {
-    "platforms": [
-      "ios",
-      "android"
-    ],
-    "plugins": {
-      "cordova-plugin-device": {},
-      "cordova-plugin-inappbrowser": {},
-      "cordova-plugin-splashscreen": {},
-      "cordova-plugin-whitelist": {},
-      "cordova-plugin-ionic-webview": {},
-      "cordova-plugin-statusbar": {},
-      "cordova-plugin-ionic-keyboard": {}
-    }
   }
 }
