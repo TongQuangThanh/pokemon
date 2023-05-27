@@ -1,0 +1,63 @@
+{
+  "sidebar": {
+    "dark-mode": "Dark mode"
+  },
+  "common": {
+    "setting": "Setting",
+    "species": "Species",
+    "height": "Height",
+    "weight": "Weight",
+    "shape": "Shape",
+    "color": "Color",
+    "sex-dif": "Has gender differences",
+    "sex": "Sex",
+    "male": "Male",
+    "female": "Female",
+    "default": "Default",
+    "base-exp": "Base experiment",
+    "base-cap-rate": "Base capture rate",
+    "base-happiness-rate": "Base happiness rate",
+    "is-baby": "Is baby",
+    "is-legendary": "Is legendary",
+    "is-mythical": "Is mythical",
+    "forms-switchable": "Forms switchable",
+    "unknown": "Unknown",
+    "hidden": "Hidden",
+    "growth-rate": "Growth rate",
+    "habitat": "Habitat",
+    "cancel": "Cancel",
+    "reset": "Reset"
+  },
+  "wiki": {
+    "placeholder": "Search exact name or id of pokemon",
+    "filter": "Filter",
+    "nodata": "No data",
+    "more": "Load more"
+  },
+  "pokemon": {
+    "name": "Name",
+    "total": "total",
+    "ability": "Ability",
+    "hatch_counter": "Hatch counter",
+    "encounter": "Encounter",
+    "strategy": "Strategy",
+    "statistics": "Statistics",
+    "varieties": "Varieties",
+    "evolution": "Evolution",
+    "best-to-beast": "Best to beast",
+    "avoid-with": "Avoid with",
+    "not-available": "Not available",
+    "min-level": "Min level",
+    "step": "bước",
+    "hp": "hp",
+    "attack": "attack",
+    "special-attack": "special attack",
+    "defense": "defense",
+    "special-defense": "special defense",
+    "speed": "speed"
+  },
+  "filter": {
+    "type": "Type",
+    "select-all": "Select all"
+  }
+}

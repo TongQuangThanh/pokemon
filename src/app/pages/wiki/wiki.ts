@@ -35,12 +35,18 @@ export class WikiPage implements OnInit {
   constructor(private pokemonService: PokemonService, public routerOutlet: IonRouterOutlet, private modalController: ModalController,
               public sharedService: SharedService) {
     this.queryTextUpdate.pipe(debounceTime(1000), distinctUntilChanged()).subscribe(value => {
-      this.pokemonService.searchPokemon(value).subscribe((data: Pokemon) => {
-        this.results = [data];
-        this.searchMode = true;
-      }, error => {
-        this.results = [];
-      });
+      if (value) {
+        this.pokemonService.searchPokemon(value).subscribe(
+          (data: Pokemon) => {
+            this.results = [data];
+            this.searchMode = true;
+          },
+          error => {
+            this.results = [];
+            this.searchMode = true;
+          }
+        );
+      }
     });
   }
 
@@ -50,10 +56,13 @@ export class WikiPage implements OnInit {
 
   cancelSearchBar() {
     this.showSearchBar = false;
-    this.results = [];
+    this.currentIdx = 0;
     this.loading = false;
     this.searchMode = false;
-    this.loadData();
+    if (this.results?.length === 0) {
+      this.nextUrl = '';
+      this.loadData();
+    }
   }
 
   loadData() {
@@ -97,7 +106,6 @@ export class WikiPage implements OnInit {
   async presentFilter() {
     const modal = await this.modalController.create({
       component: FilterComponent,
-      swipeToClose: true,
       presentingElement: this.routerOutlet.nativeEl,
       componentProps: {
         selectedGender: this.genders,

@@ -14,8 +14,8 @@ export const statsData = [
   { name: 'attack', color: 'danger', value: 190 },
   { name: 'defense', color: 'primary', value: 250 },
   { name: 'special-attack', color: 'warning', value: 194 },
-  { name: 'special-defense', color: 'info', value: 250 },
-  { name: 'speed', color: 'secondary', value: 200 }
+  { name: 'special-defense', color: 'secondary', value: 250 },
+  { name: 'speed', color: 'medium', value: 200 }
 ];
 
 export const typesData = [

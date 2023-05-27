@@ -24,3 +24,46 @@
 .prev:hover, .next:hover {
   background-color: rgba(0,0,0,0.8);
 }
+
+.success {
+  color: rgb(0, 228, 76);
+  border: 1px solid rgb(0, 228, 76);
+}
+
+.warning {
+  color: rgb(250, 206, 60);
+  border: 1px solid rgb(250, 206, 60);
+}
+
+ion-progress-bar {
+  height: 1.5rem;
+  border-radius: 4px;
+}
+
+.end-0 {
+  bottom: 0;
+}
+
+.top-0 {
+  top: 0;
+}
+
+.pe-1 {
+  padding-right: 0.5rem;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.position-absolute {
+  position: absolute;
+}
+
+ion-item::part(native) {
+  padding-left: 8px;
+}
+
+ion-item ion-text {
+  text-align: right;
+}

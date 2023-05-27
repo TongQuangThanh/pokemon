@@ -1,4 +1,3 @@
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -8,13 +7,14 @@ import { WikiPage } from './wiki';
 import { AboutPageRoutingModule } from './wiki-routing.module';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { FilterComponent } from './filter/filter';
+import { SharedModule } from '../../shared.module';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NgbModule,
+    SharedModule,
     AboutPageRoutingModule
   ],
   declarations: [WikiPage, PokemonComponent, FilterComponent],
