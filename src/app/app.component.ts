@@ -8,6 +8,7 @@ import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { Storage } from '@ionic/storage';
+import { LOCAL_DARK } from './models/model';
 
 @Component({
   selector: 'app-root',
@@ -39,7 +40,7 @@ export class AppComponent implements OnInit {
     }
   ];
   loggedIn = false;
-  dark = false;
+  isDark = localStorage.getItem(LOCAL_DARK) === 'true';
 
   constructor(
     private menu: MenuController,
@@ -103,6 +104,10 @@ export class AppComponent implements OnInit {
     window.addEventListener('user:logout', () => {
       this.updateLoggedInStatus(false);
     });
+  }
+
+  changeDarkMode() {
+    localStorage.setItem(LOCAL_DARK, this.isDark.toString());
   }
 
   openTutorial() {

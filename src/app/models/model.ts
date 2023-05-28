@@ -1,5 +1,6 @@
 export const limit = 8;
-
+export const LOCAL = 'thnvn_pokemon_';
+export const LOCAL_DARK = LOCAL + 'DARK';
 export const baseUrls = 'https://pokeapi.co/api/v2';
 
 export const filters = ['gender', 'growth-rate', 'pokemon-habitat', 'type', 'pokemon-color', 'pokemon-shape'];
