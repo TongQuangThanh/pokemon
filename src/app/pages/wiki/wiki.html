@@ -74,6 +74,9 @@
         <ion-button *ngIf="!searchMode" expand="full" (click)="loadData()">
           {{ 'wiki.more' | translate }}
         </ion-button>
+        <ion-button *ngIf="searchMode" expand="full" (click)="reset()">
+          {{ 'common.cancel' | translate }}
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

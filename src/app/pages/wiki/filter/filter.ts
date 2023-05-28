@@ -103,22 +103,35 @@ export class FilterComponent implements OnInit {
     this.addChecked(this.growthRates);
     this.addChecked(this.types);
     this.addChecked(this.habitats);
-    this.isFilter = false;
   }
 
-  check(ele: any, array: any[], allStatus: boolean) {
-    ele.checked = !ele.checked;
-    this.isChecked(array, allStatus);
-  }
-
-  isChecked(array: any[], allStatus: boolean) {
-    allStatus = array.every(it => it.checked);
-    this.isFilter = array.some(it => it.checked);
+  isChecked(array: any[], type: string) {
+    const allStatus = array.every(it => it.checked);
+    switch (type) {
+      case 'color':
+        this.colorAll = allStatus;
+        break;
+      case 'gender':
+        this.genderAll = allStatus;
+        break;
+      case 'shape':
+        this.shapeAll = allStatus;
+        break;
+      case 'growth':
+        this.growthAll = allStatus;
+        break;
+      case 'type':
+        this.typeAll = allStatus;
+        break;
+      case 'habitat':
+        this.habitatAll = allStatus;
+        break;
+    }
   }
 
   toggleAll(array: any[], allStatus: boolean) {
     for (const it of array) {
-      it.checked = !allStatus;
+      it.checked = allStatus;
     }
   }
 
@@ -132,6 +145,7 @@ export class FilterComponent implements OnInit {
     const habitats = this.habitats.filter(it => it.checked);
     const promise = [];
     const all = shapes.concat(types).concat(genders).concat(growths).concat(colors).concat(habitats);
+    this.isFilter = all.length > 0;
     for (const it of all) {
       promise.push(this.pokemonService.getDataByUrl(it.url).toPromise());
     }

@@ -54,11 +54,18 @@ export class WikiPage implements OnInit {
     this.loadData();
   }
 
+  reset() {
+    this.searchMode = false;
+    this.isFilter = false;
+    this.nextUrl = '';
+    this.results = [];
+    this.loadData();
+  }
+
   cancelSearchBar() {
     this.showSearchBar = false;
     this.currentIdx = 0;
     this.loading = false;
-    this.searchMode = false;
     if (this.results?.length === 0) {
       this.nextUrl = '';
       this.loadData();

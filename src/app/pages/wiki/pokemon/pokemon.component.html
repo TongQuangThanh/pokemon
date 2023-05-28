@@ -2,16 +2,11 @@
   <ion-toolbar>
     <ion-title>{{ pokemon.name }}</ion-title>
     <ion-buttons slot="end">
-      <ion-button (click)="dismissModal()">{{ 'common.close' | translate }}</ion-button>
+      <ion-button (click)="dismissModal()">{{ 'common.cancel' | translate }}</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
-  <!-- <ion-slides *ngIf="images" pager="false" scrollbar="true" [options]="slideOpts">
-    <ion-slide *ngFor="let item of images">
-      <ion-img [src]="item"></ion-img>
-    </ion-slide>
-  </ion-slides> -->
   <ion-img [src]="pokemonService.getPokemonAvatar(pokemon)" class="ion-margin"></ion-img>
   <ion-card-header>
     <h1>{{ pokemon.name }}</h1>
