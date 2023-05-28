@@ -1,0 +1,70 @@
+{
+  "sidebar": {
+    "dark-mode": "Chế độ tối"
+  },
+  "common": {
+    "setting": "Cài đặt",
+    "species": "Loài",
+    "height": "Chiều cao",
+    "weight": "Cân nặnng",
+    "shape": "Hìh dạng",
+    "color": "Màu",
+    "sex-dif": "Có sự khác biệt giới tính",
+    "sex": "Giới tính",
+    "male": "Đực",
+    "female": "Cái",
+    "default": "Mặc định",
+    "base-exp": "Kinh nghiệm cơ sở",
+    "base-cap-rate": "Tỉ lệ chiếm cứ cơ sở",
+    "base-happiness-rate": "Tỉ lệ hạnh phúc cơ bản",
+    "is-baby": "Trạng thái con non",
+    "is-legendary": "Trạng thái huyền thoại",
+    "is-mythical": "Trạng thái thần thoại",
+    "forms-switchable": "Có thể biến đổi",
+    "unknown": "Không xác định",
+    "hidden": "Bị ẩn",
+    "growth-rate": "Tỉ lệ trưởng thành",
+    "habitat": "Môi trường sống",
+    "close": "Đóng",
+    "reset": "Đặt lại"
+  },
+  "wiki": {
+    "placeholder": "Tìm chính xác tên hoặc id của pokemon",
+    "filter": "Lọc",
+    "nodata": "Không có dữ liệu",
+    "more": "Thêm"
+  },
+  "pokemon": {
+    "name": "Tên",
+    "total": "tổng",
+    "ability": "khả năng",
+    "hatch_counter": "Bộ đếm ấp trứng",
+    "encounter": "Nơi tìm thấy",
+    "strategy": "Chiến thuật",
+    "statistics": "Thống kê",
+    "varieties": "Giống loài",
+    "evolution": "Tiến hóa",
+    "best-to-beast": "Tốt nhất để chống lại",
+    "avoid-with": "Nên tránh với",
+    "not-available": "Không xác định",
+    "min-level": "Cấp tối thiểu",
+    "step": "bước",
+    "hp": "máu",
+    "attack": "tấn công",
+    "special-attack": "tấn công đặc biệt",
+    "defense": "phòng thủ",
+    "special-defense": "phòng thủ đặc biệt",
+    "speed": "tốc độ"
+  },
+  "filter": {
+    "type": "Loại",
+    "select-all": "Chọn tất cả"
+  },
+  "fire": "Lửa",
+  "ice": "Băng",
+  "water": "Nước",
+  "rock": "",
+  "flying": "Bay",
+
+  "bug": "Côn trùng"
+}

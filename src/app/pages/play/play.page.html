@@ -13,12 +13,12 @@
 <ion-content fullscreen="true">
   <ion-grid fixed class="ion-no-padding d-flex flex-column h-100">
     <ion-row>
-      <ion-slides [options]="{ slidesPerView: 3, loop: true }">
-        <ion-slide *ngFor="let pokemon of computer" class="flex-column">
+      <swiper-container [slidesPerView]="3" [loop]="true">
+        <swiper-slide *ngFor="let pokemon of computer" class="flex-column">
           <img [src]="pokemonService.getPokemonAvatar(pokemon)" style="height: 50px;">
           <h5>{{ pokemon.name }}</h5>
-        </ion-slide>
-      </ion-slides>
+        </swiper-slide>
+      </swiper-container>
     </ion-row>
     <div id="main" class="position-relative ion-margin-vertical flex-grow-1">
       <div id="computer" class="w-100 h-100 bg-danger position-absolute text-end" *ngIf="computerSelected">
@@ -29,12 +29,12 @@
       </div>
     </div>
     <ion-row>
-      <ion-slides [options]="{ slidesPerView: 3, loop: true }">
-        <ion-slide *ngFor="let pokemon of player1" class="flex-column" (click)="choosePokemon(pokemon)">
+      <swiper-container [slidesPerView]="3" [loop]="true">
+        <swiper-slide *ngFor="let pokemon of player1" class="flex-column" (click)="choosePokemon(pokemon)">
           <img [src]="pokemonService.getPokemonAvatar(pokemon)" style="height: 50px;">
           <h5>{{ pokemon.name }}</h5>
-        </ion-slide>
-      </ion-slides>
+        </swiper-slide>
+      </swiper-container>
     </ion-row>
   </ion-grid>
 </ion-content>

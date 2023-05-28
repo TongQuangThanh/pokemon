@@ -11,7 +11,7 @@ export class PokemonService {
   constructor(private http: HttpClient) { }
 
   getListPokemon(url?: string): Observable<Responds> {
-    return this.http.get<Responds>(url ? url : `${baseUrls}/pokemon?limit=${limit}`);
+    return this.http.get<Responds>(url ? url : `${baseUrls}/pokemon`); // ?limit=${limit}
   }
 
   getDataByString(str: string) {
@@ -27,8 +27,8 @@ export class PokemonService {
   }
 
   getPokemonAvatar(pokemon: Pokemon) {
-    return pokemon.sprites.other.dream_world.front_default ?
-      pokemon.sprites.other.dream_world.front_default : pokemon.sprites.other['official-artwork'].front_default;
+    return pokemon?.sprites?.other?.dream_world?.front_default ?
+      pokemon.sprites.other.dream_world.front_default : pokemon?.sprites?.other['official-artwork']?.front_default;
   }
 }
 

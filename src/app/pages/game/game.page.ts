@@ -79,14 +79,10 @@ export class GamePage implements OnInit {
   }
 
   ngOnInit() {
-    this.storageService.get(storageKey.player1).then(
-      data => {
-        if (data) {
-          this.player1 = data;
-        }
-      },
-      error => console.log(error)
-    );
+    const data = this.storageService.get(storageKey.player1);
+    if (data) {
+      this.player1 = data;
+    }
   }
 
   checkExist() {
@@ -95,13 +91,8 @@ export class GamePage implements OnInit {
 
   addPokemon() {
     this.player1.push(this.pokemon);
-    this.storageService.set(storageKey.player1, this.player1).then(
-      data => {
-        this.pokemon = null;
-      },
-      error => {
-        console.log(error);
-      });
+    this.storageService.set(storageKey.player1, this.player1);
+    this.pokemon = null;
   }
 
   removePokemon(id: number) {

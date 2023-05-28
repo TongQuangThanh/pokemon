@@ -5,13 +5,14 @@
     </ion-buttons>
     <ion-title *ngIf="!showSearchBar">Wiki</ion-title>
     <ion-searchbar *ngIf="showSearchBar" showCancelButton="always" [(ngModel)]="queryText"
-      (ionCancel)="cancelSearchBar()" placeholder="Search name or id" (ngModelChange)="queryTextUpdate.next($event)"></ion-searchbar>
+      (ionCancel)="cancelSearchBar()" [placeholder]="'wiki.placeholder' | translate"
+      (ngModelChange)="queryTextUpdate.next($event)"></ion-searchbar>
     <ion-buttons slot="end">
       <ion-button *ngIf="!showSearchBar" (click)="showSearchBar = true">
         <ion-icon slot="icon-only" name="search"></ion-icon>
       </ion-button>
       <ion-button *ngIf="!showSearchBar" (click)="presentFilter()">
-        <span *ngIf="ios">Filter</span>
+        <span *ngIf="ios">{{ 'wiki.filter' | translate }}</span>
         <span *ngIf="!ios">
           <ion-icon slot="icon-only" name="options"></ion-icon>
         </span>
@@ -31,13 +32,13 @@
           </ion-thumbnail>
           <ion-label>
             <h2>{{ pokemon.name }}</h2>
-            <p>Species: {{ pokemon.species.name }}</p>
+            <p>{{ 'common.species' | translate }}: {{ pokemon.species.name }}</p>
             <p>
               <ion-text class="ion-float-left">
-                Height: {{ pokemon.height / 10 }} m
+                {{ 'common.height' | translate }}: {{ pokemon.height / 10 }} m
               </ion-text>
               <ion-text class="ion-float-right">
-                Weight: {{ pokemon.weight }} kg
+                {{ 'common.weight' | translate }}: {{ pokemon.weight }} kg
               </ion-text>
             </p>
           </ion-label>
@@ -65,12 +66,14 @@
         </ion-item>
       </ion-col>
     </ion-row>
-    <ion-row *ngIf="results && results.length === 0 && !loading" class="justify-content-center">
-      <ion-title>No data</ion-title>
+    <ion-row *ngIf="results?.length === 0 && !loading" class="justify-content-center">
+      <ion-title>{{ 'wiki.nodata' | translate }}</ion-title>
     </ion-row>
     <ion-row>
       <ion-col size="12">
-        <ion-button *ngIf="!searchMode && results.length > 0" expand="full" (click)="loadData()">Load more</ion-button>
+        <ion-button *ngIf="!searchMode" expand="full" (click)="loadData()">
+          {{ 'wiki.more' | translate }}
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>
