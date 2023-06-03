@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { WikiPage } from './wiki';
-import { AboutPageRoutingModule } from './wiki-routing.module';
+import { WikiPageRoutingModule } from './wiki-routing.module';
 import { PokemonComponent } from './pokemon/pokemon.component';
 import { FilterComponent } from './filter/filter';
 import { SharedModule } from '../../shared.module';
@@ -15,7 +15,7 @@ import { SharedModule } from '../../shared.module';
     FormsModule,
     IonicModule,
     SharedModule,
-    AboutPageRoutingModule
+    WikiPageRoutingModule
   ],
   declarations: [WikiPage, PokemonComponent, FilterComponent],
   entryComponents: [],
