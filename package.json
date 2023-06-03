@@ -11,7 +11,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "postinstall": "webdriver-manager update --standalone false --gecko false"
+    "android": "ionic cap run android --livereload --external --target=Pixel_3_API_30"
   },
   "repository": {
     "type": "git"
