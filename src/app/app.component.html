@@ -18,6 +18,12 @@
               </ion-label>
             </ion-item>
           </ion-menu-toggle>
+          <ion-menu-toggle autoHide="false">
+            <ion-item lines="none" (click)="exit()">
+              <ion-icon ios="log-out-outline" md="log-out-sharp" slot="start"></ion-icon>
+              <ion-label>{{ 'sidebar.exit' | translate }}</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
         </ion-list>
         <!-- 
         <ion-list *ngIf="loggedIn" lines="none">

@@ -7,6 +7,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { LOCAL_LANG, adBannerAndroid } from '../environments/const';
 import { PluginListenerHandle } from '@capacitor/core/types/definitions';
 import { LOCAL_DARK } from './models/model';
+import { App } from '@capacitor/app';
 
 @Component({
   selector: 'app-root',
@@ -126,4 +127,7 @@ export class AppComponent implements OnInit {
     }
   }
 
+  exit() {
+    App.exitApp();
+  }
 }
